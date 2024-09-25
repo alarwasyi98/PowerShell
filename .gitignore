@@ -1,0 +1,29 @@
+# PowerShell modules
+Modules/*
+!Modules/README.md
+
+# PowerShell help files
+Help/*
+!Help/README.md
+
+# Visual Studio Code files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Compiled output
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Windows
+Thumbs.db
