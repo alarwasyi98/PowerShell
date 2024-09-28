@@ -10,7 +10,7 @@
 # Exporting chocolatey profile to enable tab-completion
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
+    Import-Module "$ChocolateyProfile"
 }
 
 ### ALIASES ###
@@ -62,7 +62,7 @@ function bfzf {
 }
 
 function fzfvim {
-  nvim (fzf --preview="bat --decorations=always --color=always {}")
+    nvim (fzf --preview="bat --decorations=always --color=always {}")
 }
 
 ### SPECIAL FUNCTIONS ###
@@ -72,29 +72,31 @@ function admin {
     if ($args.Count -gt 0) {
         $argList = "& '$args'"
         Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
-    } else {
+    }
+    else {
         Start-Process wt -Verb runAs
     }
 }
 
 # Print command location
 function which {
-  param (
-    [Parameter(Mandatory=$true, Position=0)]
-    [string]$command  
-  )
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$command  
+    )
 
-  $result = Get-Command $command -ErrorAction SilentlyContinue
+    $result = Get-Command $command -ErrorAction SilentlyContinue
 
-  if ($result) {
-    $result.Source
-    } else {
+    if ($result) {
+        $result.Source
+    }
+    else {
         Write-Host "${command} not found"
     }
 }
 
 # Reload PowerShell Profiles for All Users
-function Reload-Profile {
+function Update-Profile {
     # Memuat ulang profil PowerShell
     . $PROFILE
     Write-Output "Profile Reloaded"

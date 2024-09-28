@@ -1,6 +1,6 @@
 function whereis {
     param (
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$Command
     )
     $results = @()
@@ -10,15 +10,15 @@ function whereis {
         Join-Path $_ "$Command*"
     }
     $executableLocations = Get-ChildItem -Path $pathLocations -ErrorAction SilentlyContinue | 
-                           Where-Object { $_.Name -match "^$Command(\.exe|\.cmd|\.bat)?$" }
+    Where-Object { $_.Name -match "^$Command(\.exe|\.cmd|\.bat)?$" }
 
     # Search for PowerShell modules
     $moduleLocations = Get-Module -Name $Command -ListAvailable
 
     # Search for help files
     $helpLocations = Get-Help $Command -ErrorAction SilentlyContinue |
-                     Where-Object { $_.Path -ne $null } |
-                     Select-Object -ExpandProperty Path
+    Where-Object { $null -ne $_.Path } |
+    Select-Object -ExpandProperty Path
 
     if ($executableLocations) {
         $results += "Executables:"
@@ -37,7 +37,8 @@ function whereis {
 
     if ($results.Count -eq 0) {
         Write-Host "No locations found for '$Command'" -ForegroundColor Yellow
-    } else {
+    }
+    else {
         $results | ForEach-Object { Write-Host $_ }
     }
 }
