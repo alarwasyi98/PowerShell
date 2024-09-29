@@ -7,7 +7,10 @@
 
 ### ENVIRONMENT VARIABLES ###
 
-Set-Item -Force -Path "env:CONFIG_HOME" -Value "$HOME/.config"
+# Export Env Function
+function export($name, $value) {
+    set-item -force -path "env:$name" -value $value;
+}
 
 # Utility Functions
 function Test-CommandExists {
@@ -35,6 +38,8 @@ if (Test-Path($ChocolateyProfile)) {
 ### ALIASES ###
 Set-Alias -Name tt -Value tree
 Set-Alias -Name ll -Value ls
+Set-Alias -Name la -Value "Get-ChildItem -Path . -Force | Format-Table -AutoSize"
+Set-Alias -Name ln -Value "Get-ChildItem -Name | Format-Table -Autosize"
 
 Set-Alias -Name vim -Value $EDITOR
 Set-Alias -Name vi -Value nvim
@@ -42,7 +47,6 @@ Set-Alias -Name cat -Value bat
 Set-Alias -Name h -Value Get-History
 
 ### HANDY ALIASES ###
-#Set-Alias -Name touch -Value "New-Item -Type File"
 Set-Alias -Name ep -Value Edit-Profile
 Set-Alias -Name sedit -Value Edit-Starship
 
@@ -84,15 +88,6 @@ Function fzfvim {
     nvim (fzf --preview="bat --decorations=always --color=always {}")
 }
 
-
-# Easy Navigate
-Function docs {
-  Set-Location $HOME/Documents
-}
-Function power {
-  Set-Location $HOME/Documents/PowerShell
-}
-
 ### SPECIAL FUNCTIONS ###
 
 # Run as Administrator
@@ -129,7 +124,10 @@ Function which {
         Write-Host "${command} not found"
     }
 }
-function touch($file) { "" | Out-File $file -Encoding ASCII }
+
+# Create New-Item
+Function touch($file) { "" | Out-File $file -Encoding ASCII }
+
 # Locate file quickly
 Function ff ($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
