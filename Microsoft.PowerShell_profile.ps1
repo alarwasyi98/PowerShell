@@ -6,11 +6,8 @@
 #      \/
 
 ### ENVIRONMENT VARIABLES ###
-
-# Export Env Function
-function export($name, $value) {
-    set-item -force -path "env:$name" -value $value;
-}
+Set-Item -Force -Path "ENV:CONFIG_HOME" -Value $HOME\.config
+Set-Item -Force -Path "ENV:STARSHIP_CONFIG" -Value $HOME\.config\starship.toml
 
 # Utility Functions
 function Test-CommandExists {
@@ -38,8 +35,6 @@ if (Test-Path($ChocolateyProfile)) {
 ### ALIASES ###
 Set-Alias -Name tt -Value tree
 Set-Alias -Name ll -Value ls
-Set-Alias -Name la -Value "Get-ChildItem -Path . -Force | Format-Table -AutoSize"
-Set-Alias -Name ln -Value "Get-ChildItem -Name | Format-Table -Autosize"
 
 Set-Alias -Name vim -Value $EDITOR
 Set-Alias -Name vi -Value nvim
@@ -60,7 +55,10 @@ Set-Alias -Name su -Value admin
 Function Edit-Profile { vim $PROFILE }
 
 # starship
-Function Edit-Starship { vim $HOME\.config\starship.toml }
+Function Edit-Starship { vim $STARSHIP_CONFIG }
+
+# nvim
+Function Edit-Nvim { vim $ENV:LOCALAPPDATA\nvim }
 
 # Git
 Function gs { git status }
@@ -90,22 +88,28 @@ Function fzfvim {
 
 ### SPECIAL FUNCTIONS ###
 
-# Run as Administrator
-Function admin {
-    if ($args.Count -gt 0) {
-        $argList = "& '$args'"
-        Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
-    }
-    else {
-        Start-Process wt -Verb runAs
-    }
-}
-
 # Reload PowerShell Profiles for All Users
 Function Update-Profile {
     # Memuat ulang profil PowerShell
     . $PROFILE
     Write-Output "Profile Reloaded"
+}
+
+# Create New-Item
+Function touch($file) { "" | Out-File $file -Encoding ASCII }
+
+# Locate file quickly
+Function ff ($name) {
+    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
+        Write-Output "$($_.FullName)"
+    }
+}
+
+# Extract ZIP File
+Function unzip ($file) {
+    Write-Output("Extracting", $file, "to", $pwd)
+    $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
+    Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
 
 # Print command location
@@ -125,21 +129,15 @@ Function which {
     }
 }
 
-# Create New-Item
-Function touch($file) { "" | Out-File $file -Encoding ASCII }
-
-# Locate file quickly
-Function ff ($name) {
-    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
-        Write-Output "$($_.FullName)"
+# Run as Administrator
+Function admin {
+    if ($args.Count -gt 0) {
+        $argList = "& '$args'"
+        Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
     }
-}
-
-# Extract ZIP File
-Function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
+    else {
+        Start-Process wt -Verb runAs
+    }
 }
 
 ### MODULES IMPORTER ###
