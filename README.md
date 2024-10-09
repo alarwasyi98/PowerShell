@@ -10,33 +10,38 @@ This repository contains the configuration files and scripts for my [PowerShell]
 
 The repository is organized as follows dependencies:
 
-| Section                   | Description                                                                                |
-| ------------------------- | ------------------------------------------------------------------------------------------ |
-| **Applications**          | These are the external applications that are a dependency for my PowerShell setup.         |
-| **Modules**               | These are the PowerShell modules that I have installed and configured.                     |
-| **Scripts**               | These are the custom PowerShell scripts that I have created for various purposes.          |
-| **Additional Repository** | These are the additional Git repositories that I have integrated into my PowerShell setup. |
+| Section                   | Description                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Applications**          | These are the external applications that are a dependency for my PowerShell setup.                   |
+| **Modules**               | These are the PowerShell modules that I have installed and configured.                               |
+| **Scripts**               | These are the custom PowerShell scripts that I have created for various purposes.                    |
+| **Additional Repository** | These are the additional Git repositories that I have integrated into my PowerShell setup.           |
 | **Colorscheme**           | Color properties of most components in my [Windows Terminal](https://github.com/microsoft/terminal). |
 
 ### Applications
 
-| Application                           | Description                        |
-| ------------------------------------- | ---------------------------------- |
-| [chocolatey](https://chocolatey.org/) | Package manager for Windows        |
-| [neovim](https://neovim.io/)          | Vim-based text editor              |
-| [starship](https://starship.rs)       | Cross-shell prompt                 |
-| [git](https://git-scm.com)            | Distributed version control system |
-| [fzf](https://github.com/junegunn/fzf)| Fuzzy finder                       |
+| Application                            | Description                        |
+| -------------------------------------- | ---------------------------------- |
+| [chocolatey](https://chocolatey.org/)  | Package manager for Windows        |
+| [neovim](https://neovim.io/)           | Vim-based text editor              |
+| [starship](https://starship.rs)        | Cross-shell prompt                 |
+| [git](https://git-scm.com)             | Distributed version control system |
+| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder                       |
 
 ### Modules
 
-| Module                                    | Description                                     |
-| ----------------------------------------- | ----------------------------------------------- |
-| [Terminal-Icons](https://github.com/devblackops/Terminal-Icons) | Provides file icons for the terminal |
-| [PSReadline](https://github.com/PowerShell/PSReadLine) | Enhances the PowerShell command-line experience |
-| [Command-Not-Found](https://github.com/PowerShell/command-not-found) | Provides suggestions for missing commands |
-| [PSWebSearch](https://github.com/JMOrbegoso/PSWebSearch) | Provides Googling through PowerShell |
-| [ps-color-scripts](https://github.com/scottmckendry/ps-color-scripts) | Derek Taylor's colorscripts fork |
+> [!INFO]
+> I intentionally ignoring Module's folder because of performance issues
+> and different users might need different versions of modules
+
+| Module                                                                | Description                                                                                      |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)       | Provides file icons for the terminal                                                             |
+| [PSReadline](https://github.com/PowerShell/PSReadLine)                | Enhances the PowerShell command-line experience                                                  |
+| [Command-Not-Found](https://github.com/PowerShell/command-not-found)  | Provides suggestions for missing commands                                                        |
+| [PSWebSearch](https://github.com/JMOrbegoso/PSWebSearch)              | Provides Googling through PowerShell                                                             |
+| [ps-color-scripts](https://github.com/scottmckendry/ps-color-scripts) | Derek Taylor's colorscripts fork                                                                 |
+| [winfetch](https://github.com/lptstr/winfetch)                        | Like Neofetch, but for Windows.                                                                  |
 
 ### Scripts
 
@@ -44,19 +49,19 @@ The repository is organized as follows dependencies:
 > Always review codes that you get outside to avoid system failure etc.
 > Make sure you have idea what you do.
 
-| Script               | Description                                        |
-| -------------------- | -------------------------------------------------- |
-| `Install-Deps` (BETA)      | Installing Dependencies that support this profile  |
-| `Build-Git`          | Sets up Git configuration and aliases              |
-| `Get-Linux`          | Retrieves information about the Linux environment  |
-| `Windows-Utility`    | Provides various Windows-related utility functions |
-| `Reset-Neovim`       | Reset the Neovim Configurations                    |
-| `Install-BuildTools` | Installs the necessary build tools                 |
+| Script                | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `Install-Deps` (BETA) | Installing Dependencies that support this profile  |
+| `Build-Git`           | Sets up Git configuration and aliases              |
+| `Get-Linux`           | Retrieves information about the Linux environment  |
+| `Windows-Utility`     | Provides various Windows-related utility functions |
+| `Reset-Neovim`        | Reset the Neovim Configurations                    |
+| `Install-BuildTools`  | Installs the necessary build tools                 |
 
 > [!IMPORTANT]
 > Most of the scripts is an unsigned scripts.
 > So if you trust the script, `Set-ExecutionPolicy` to `Unrestricted`,
->`RemoteSigned`, or `ByPass` before you run the script.
+> `RemoteSigned`, or `ByPass` before you run the script.
 
 ### Additional Repository
 
@@ -67,9 +72,9 @@ The repository is organized as follows dependencies:
 
 ### Colorscheme
 
-| Colorscheme | Description |
-| ----------- | ----------- |
-| [Catppuccin Mocha](https://github.com/catppuccin/windows-terminal) | Soothing pastel theme for Windows Terminal |
+| Colorscheme                                                             | Description                                   |
+| ----------------------------------------------------------------------- | --------------------------------------------- |
+| [Catppuccin Mocha](https://github.com/catppuccin/windows-terminal)      | Soothing pastel theme for Windows Terminal    |
 | [Dracula](https://github.com/dracula/windows-terminal) (currently used) | Dracula Theme for Windows Terminal dark theme |
 
 ## Usage
