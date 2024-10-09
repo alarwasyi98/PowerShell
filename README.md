@@ -30,7 +30,7 @@ The repository is organized as follows dependencies:
 
 ### Modules
 
-> [!INFO]
+> [!NOTE]
 > I intentionally ignoring Module's folder because of performance issues
 > and different users might need different versions of modules
 
