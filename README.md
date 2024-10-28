@@ -2,9 +2,16 @@
 
 ![Powershell Badge](https://img.shields.io/badge/PowerShell-blue?style=for-the-badge&logo=opentofu&logoColor=white)
 
-This repository contains the configuration files and scripts for my [PowerShell](https://github.com/PowerShell/) setup. It includes my PowerShell profile, modules, and various utility scripts. Checkout the [Official Documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4) to generate your own profile.
+This repository contains the configuration files and scripts for my
+[PowerShell](https://github.com/PowerShell/) setup. It includes my PowerShell
+profile, modules, and various utility scripts. Checkout the
+[Official Documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4)
+to generate your own profile.
 
 ![banner](./Assets/TermDesktop.png)
+
+> To get the perfect experience, make sure FiraCode NerdFont is installed and
+> set it up to bold. I installed it via-[Scoop](htps://scoop.sh)
 
 ## Repository Structure
 
@@ -34,14 +41,14 @@ The repository is organized as follows dependencies:
 > I intentionally ignoring Module's folder because of performance issues
 > and different users might need different versions of modules
 
-| Module                                                                | Description                                                                                      |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)       | Provides file icons for the terminal                                                             |
-| [PSReadline](https://github.com/PowerShell/PSReadLine)                | Enhances the PowerShell command-line experience                                                  |
-| [Command-Not-Found](https://github.com/PowerShell/command-not-found)  | Provides suggestions for missing commands                                                        |
-| [PSWebSearch](https://github.com/JMOrbegoso/PSWebSearch)              | Provides Googling through PowerShell                                                             |
-| [ps-color-scripts](https://github.com/scottmckendry/ps-color-scripts) | Derek Taylor's colorscripts fork                                                                 |
-| [winfetch](https://github.com/lptstr/winfetch)                        | Like Neofetch, but for Windows.                                                                  |
+| Module                                                                | Description                                     |
+| --------------------------------------------------------------------- | ----------------------------------------------- |
+| [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)       | Provides file icons for the terminal            |
+| [PSReadline](https://github.com/PowerShell/PSReadLine)                | Enhances the PowerShell command-line experience |
+| [Command-Not-Found](https://github.com/PowerShell/command-not-found)  | Provides suggestions for missing commands       |
+| [PSWebSearch](https://github.com/JMOrbegoso/PSWebSearch)              | Provides Googling through PowerShell            |
+| [ps-color-scripts](https://github.com/scottmckendry/ps-color-scripts) | Derek Taylor's colorscripts fork                |
+| [winfetch](https://github.com/lptstr/winfetch)                        | Like Neofetch, but for Windows.                 |
 
 ### Scripts
 
