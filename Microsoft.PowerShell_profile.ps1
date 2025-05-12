@@ -1,7 +1,7 @@
 #        .__
 # _____  |  |     POWERSHELL 7 SETUP
 # \__  \ |  |     Abdul Hakim (alarwasyi98)
-#  / __ \|  |__   https://github.com/alarwasyi98
+#  / __ \|  |__   https://github.com/alarwasyi98/PowerShell
 # (____  /____/
 #      \/
 
@@ -146,8 +146,8 @@ Function admin {
 Import-Module Terminal-Icons
 
 # PSReadline; fish-like capability
-Set-PSReadlineKeyHandler -Key Tab -Function Complete
-Set-PSReadlineOption -PredictionViewStyle InlineView 
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+# Set-PSReadlineOption -PredictionViewStyle InlineView 
 Set-PsReadlineOption -PredictionSource History
 
 # Command Not Found (PowerToys)
