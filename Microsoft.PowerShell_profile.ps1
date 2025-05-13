@@ -8,6 +8,7 @@
 ### ENVIRONMENT VARIABLES ###
 Set-Item -Force -Path "ENV:CONFIG_HOME" -Value $HOME\.config
 Set-Item -Force -Path "ENV:STARSHIP_CONFIG" -Value $HOME\.config\starship.toml
+$ENV:GIT_SSH = "C:\Windows\system32\OpenSSH\ssh.exe"
 
 # Utility Functions
 function Test-CommandExists {
