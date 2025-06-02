@@ -8,7 +8,7 @@ profile, modules, and various utility scripts. Checkout the
 [Official Documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4)
 to generate your own profile.
 
-![banner](./Assets/TermDesktop.png)
+![banner](./Assets/gruvbox-pwsh.png)
 
 > To get the perfect experience, make sure FiraCode NerdFont is installed and
 > set it up to bold. I installed it via-[Scoop](htps://scoop.sh)
@@ -48,7 +48,6 @@ The repository is organized as follows dependencies:
 | [Command-Not-Found](https://github.com/PowerShell/command-not-found)  | Provides suggestions for missing commands       |
 | [PSWebSearch](https://github.com/JMOrbegoso/PSWebSearch)              | Provides Googling through PowerShell            |
 | [ps-color-scripts](https://github.com/scottmckendry/ps-color-scripts) | Derek Taylor's colorscripts fork                |
-| [winfetch](https://github.com/lptstr/winfetch)                        | Like Neofetch, but for Windows.                 |
 
 ### Scripts
 
@@ -62,7 +61,7 @@ The repository is organized as follows dependencies:
 | `Build-Git`           | Sets up Git configuration and aliases              |
 | `Get-Linux`           | Retrieves information about the Linux environment  |
 | `Windows-Utility`     | Provides various Windows-related utility functions |
-| `Reset-Neovim`        | Reset the Neovim Configurations                    |
+| `Remove-Neovim`       | Reset the Neovim Configurations                    |
 | `Install-BuildTools`  | Installs the necessary build tools                 |
 
 > [!IMPORTANT]
@@ -81,6 +80,7 @@ The repository is organized as follows dependencies:
 
 | Colorscheme                                                             | Description                                   |
 | ----------------------------------------------------------------------- | --------------------------------------------- |
+| [Gruvbox](https://github.com/morhetz/gruvbox)                           | A theme with pastel 'retro groove' colors     |
 | [Catppuccin Mocha](https://github.com/catppuccin/windows-terminal)      | Soothing pastel theme for Windows Terminal    |
 | [Dracula](https://github.com/dracula/windows-terminal) (currently used) | Dracula Theme for Windows Terminal dark theme |
 
@@ -89,7 +89,7 @@ The repository is organized as follows dependencies:
 To use this PowerShell configuration, simply clone this repo to your local machine.
 
 > [!NOTE]
-> Open a PowerShell terminal (version 5.1 or later) and from the `PS C:\Users\username\Documents>` prompt, then run the following command:
+> Open a PowerShell terminal (version 7. or higher) and from the `PS C:\Users\username\Documents>` prompt, then run the following command:
 
 ```sh
 git clone https://github.com/alarwasyi98/PowerShell.git
