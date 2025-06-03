@@ -171,8 +171,8 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 # Set-PSReadlineOption -PredictionViewStyle InlineView 
 Set-PsReadlineOption -PredictionSource History
 
-# Command Not Found (PowerToys)
-Import-Module -Name Microsoft.WinGet.CommandNotFound
+# Command Not Found (PowerToys) - Such as useless Module 
+# Import-Module -Name Microsoft.WinGet.CommandNotFound
 
 ### INVOCATIONS ###
 # colorscripts
