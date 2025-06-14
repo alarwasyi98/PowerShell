@@ -1,12 +1,143 @@
+<#
+.SYNOPSIS
+    PowerShell 7 Environment Setup Script - Automated configuration and module installation
+
+.DESCRIPTION
+    This script automates the setup process for a complete PowerShell 7 development environment.
+    It performs system checks, installs required modules, configures repositories, and prepares
+    the environment for enhanced PowerShell usage with modern tools and utilities.
+
+    The script handles:
+    - Administrator privilege verification
+    - Internet connectivity testing
+    - Git installation verification
+    - SSH for Windows feature installation
+    - Chocolatey package manager verification
+    - PowerShellGet module configuration
+    - PSGallery repository trust configuration
+    - Essential PowerShell modules installation
+    - Comprehensive error handling and reporting
+
+.PARAMETER Verbose
+    Enables verbose output for detailed logging of operations
+
+.PARAMETER WhatIf
+    Shows what would be performed without actually executing the operations
+
+.EXAMPLE
+    .\Setup.ps1
+    
+    Runs the setup script with default parameters, installing all required modules
+    and configuring the PowerShell environment.
+
+.EXAMPLE
+    .\Setup.ps1 -Verbose
+    
+    Runs the setup script with verbose output, providing detailed information
+    about each operation performed.
+
+.EXAMPLE
+    .\Setup.ps1 -WhatIf
+    
+    Shows what operations would be performed without actually executing them.
+    Useful for testing and verification.
+
+    Get-Help .\Setup.ps1 
+
+    Provides necessary documentation
+
+.INPUTS
+    None. This script does not accept pipeline input.
+
+.OUTPUTS
+    Console output with colored status messages, progress indicators, and summary report.
+
+.NOTES
+    File Name      : Setup.ps1
+    Author         : Abdul Hakim (alarwasyi98)
+    Prerequisite   : PowerShell 7.0 or higher
+    Created        : 2025-06-14
+    Last Modified  : 2025-06-14
+    Version        : 1.0.0
+    
+    Requirements:
+    - PowerShell 7.0 or higher
+    - Internet connection for module downloads
+    - Windows 10/11 or Windows Server 2019/2022
+    - Administrator privileges (recommended for full functionality)
+    
+    Modules Installed:
+    - Terminal-Icons      : Provides file and folder icons in terminal
+    - PSReadLine          : Enhanced command line editing experience
+    - Microsoft.WinGet.CommandNotFound : Command suggestions for missing commands
+    - ps-color-scripts    : Colorful terminal scripts and themes
+    - PSFzf              : Fuzzy finder integration for PowerShell
+    - PSWebSearch        : Web search capabilities from PowerShell
+    
+    Security:
+    - All modules are installed from trusted PSGallery repository
+    - Script includes comprehensive error handling
+    - No external executables are downloaded or executed
+    - All operations are logged with colored output
+
+.LINK
+    https://github.com/alarwasyi98/PowerShell
+    https://docs.microsoft.com/en-us/powershell/
+    https://www.powershellgallery.com/
+
+.COMPONENT
+    PowerShell Environment Setup
+
+.ROLE
+    System Configuration
+
+.FUNCTIONALITY
+    Automated PowerShell environment setup and module installation
+
+.USAGE
+    1. Download the Setup.ps1 script to your desired location
+    2. Open PowerShell 7 as Administrator (recommended)
+    3. Navigate to the script directory
+    4. Set execution policy if needed: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    5. Run the script: .\Setup.ps1
+    6. Follow the on-screen instructions and status messages
+    7. Restart PowerShell session after completion
+    8. Copy your PowerShell profile configuration to $PROFILE location
+
+    Post-Setup Recommendations:
+    - Install additional tools via winget (Oh My Posh, fzf, zoxide, bat, neovim, yazi)
+    - Configure your PowerShell profile with custom functions and aliases
+    - Set up Starship prompt configuration
+    - Configure SSH keys and Git credentials
+#>
+
+#Requires -Version 7.0
+
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [Parameter(HelpMessage = "Show verbose output during execution")]
+    [switch]$Verbose,
+    
+    [Parameter(HelpMessage = "Show what would be done without executing")]
+    [switch]$WhatIf
+)
+
 #        .__
 # _____  |  |     POWERSHELL 7 SETUP SCRIPT
 # \__  \ |  |     Abdul Hakim (alarwasyi98)
 #  / __ \|  |__   https://github.com/alarwasyi98/PowerShell
-# (____  /____/
+# (____  /____/   Version 1.0.0
 #      \/
 
-[CmdletBinding()]
-param()
+# Script metadata
+$ScriptInfo = @{
+    Name = "PowerShell 7 Environment Setup Script"
+    Version = "1.0.0"
+    Author = "Abdul Hakim (alarwasyi98)"
+    Created = "2025-06-14"
+    Repository = "https://github.com/alarwasyi98/PowerShell"
+    Description = "Automated PowerShell 7 environment configuration and module installation"
+}
 
 # Color definitions for output
 $Red = [System.ConsoleColor]::Red
@@ -14,6 +145,7 @@ $Green = [System.ConsoleColor]::Green
 $Yellow = [System.ConsoleColor]::Yellow
 $Cyan = [System.ConsoleColor]::Cyan
 $White = [System.ConsoleColor]::White
+$Magenta = [System.ConsoleColor]::Magenta
 
 function Write-ColorOutput {
     param(
