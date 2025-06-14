@@ -113,14 +113,8 @@
 
 #Requires -Version 7.0
 
-[CmdletBinding(SupportsShouldProcess)]
-param(
-    [Parameter(HelpMessage = "Show verbose output during execution")]
-    [switch]$Verbose,
-    
-    [Parameter(HelpMessage = "Show what would be done without executing")]
-    [switch]$WhatIf
-)
+[CmdletBinding()]
+param()
 
 #        .__
 # _____  |  |     POWERSHELL 7 SETUP SCRIPT
