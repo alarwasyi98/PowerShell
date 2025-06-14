@@ -171,6 +171,10 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 # Set-PSReadlineOption -PredictionViewStyle InlineView 
 Set-PsReadlineOption -PredictionSource History
 
+# FZF but for PowerShell
+Import-Module -Name PSFzf
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
+
 # Command Not Found (PowerToys) - Such as useless Module 
 # Import-Module -Name Microsoft.WinGet.CommandNotFound
 
