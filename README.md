@@ -58,19 +58,23 @@ The repository is organized as follows dependencies:
 > Always review codes that you get outside to avoid system failure etc.
 > Make sure you have idea what you do.
 
-| Script                | Description                                        |
-| --------------------- | -------------------------------------------------- |
-| `Install-Deps` (BETA) | Installing Dependencies that support this profile  |
-| `Build-Git`           | Sets up Git configuration and aliases              |
-| `Get-Linux`           | Retrieves information about the Linux environment  |
-| `Windows-Utility`     | Provides various Windows-related utility functions |
-| `Remove-Neovim`       | Reset the Neovim Configurations                    |
-| `Install-BuildTools`  | Installs the necessary build tools                 |
+| Script               | Description                                        |
+| -------------------- | -------------------------------------------------- |
+| `Setup`              | Installing Dependencies that support this profile  |
+| `Build-Git`          | Sets up Git configuration and aliases              |
+| `Get-Linux`          | Retrieves information about the Linux environment  |
+| `Windows-Utility`    | Provides various Windows-related utility functions |
+| `Remove-Neovim`      | Reset the Neovim Configurations                    |
+| `Install-BuildTools` | Installs the necessary build tools                 |
 
 > [!IMPORTANT]
 > Most of the scripts is an unsigned scripts.
 > So if you trust the script, `Set-ExecutionPolicy` to `Unrestricted`,
 > `RemoteSigned`, or `ByPass` before you run the script.
+> 
+> ```powershell
+> Set-ExecutionPolicy RemoteSigned -Scope Process -Force
+> ```
 
 ### Additional Repository
 
