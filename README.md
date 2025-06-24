@@ -13,6 +13,27 @@ to generate your own profile.
 > To get the perfect experience, make sure FiraCode NerdFont is installed and
 > set it up to bold. I installed it via-[Scoop](htps://scoop.sh)
 
+## Usage
+
+To use this PowerShell configuration, simply clone this repo to your local machine.
+
+> [!NOTE]
+> Open a PowerShell terminal (version 7. or higher) and from the `PS C:\Users\username\Documents>` prompt, then run the following command:
+
+```sh
+git clone https://github.com/alarwasyi98/PowerShell.git $ENV:USERPROFILE\Documents\PowerShell
+```
+
+1. Clone the repository to your local machine.
+2. Run the necessary `Setup.ps1` scripts to install the required applications and configure the environment.
+3. Customize the PowerShell profile and scripts as needed.
+
+```sh
+.\Setup.ps1
+```
+
+The script will guide you through the entire setup process and provide clear feedback on what's working and what needs attention.
+
 ## Repository Structure
 
 The repository is organized as follows dependencies:
@@ -91,26 +112,6 @@ The repository is organized as follows dependencies:
 | [Catppuccin Mocha](https://github.com/catppuccin/windows-terminal) | Soothing pastel theme for Windows Terminal    |
 | [Dracula](https://github.com/dracula/windows-terminal)             | Dracula Theme for Windows Terminal dark theme |
 
-## Usage
-
-To use this PowerShell configuration, simply clone this repo to your local machine.
-
-> [!NOTE]
-> Open a PowerShell terminal (version 7. or higher) and from the `PS C:\Users\username\Documents>` prompt, then run the following command:
-
-```sh
-git clone https://github.com/alarwasyi98/PowerShell.git $ENV:USERPROFILE\Documents\PowerShell
-```
-
-1. Clone the repository to your local machine.
-2. Run the necessary `Setup.ps1` scripts to install the required applications and configure the environment.
-3. Customize the PowerShell profile and scripts as needed.
-
-```sh
-.\Setup.ps1
-```
-
-The script will guide you through the entire setup process and provide clear feedback on what's working and what needs attention.
 
 Feel free to explore the repository and use the provided scripts and configurations to enhance your PowerShell experience.
 
