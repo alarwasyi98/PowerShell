@@ -2,145 +2,126 @@
 # _____  |  |     POWERSHELL 7 SETUP
 # \__  \ |  |     Abdul Hakim (alarwasyi98)
 #  / __ \|  |__   https://github.com/alarwasyi98/PowerShell
-# (____  /____/
+# (____  /____/	  Version: 12.2.1
 #      \/
 
-### ENVIRONMENT VARIABLES ###
-Set-Item -Force -Path "ENV:CONFIG_HOME" -Value $HOME\.config
-Set-Item -Force -Path "ENV:STARSHIP_CONFIG" -Value $HOME\.config\starship.toml
-$ENV:GIT_SSH = "C:\Windows\system32\OpenSSH\ssh.exe"
+# ENVIRONMENT VARIABLES
 
-# Utility Functions
+$ENV:CONFIG_HOME	= "$HOME\.config"
+$ENV:STARSHIP_CONFIG 	= "$HOME\.config\starship.toml"
+$ENV:GIT_SSH        	= "$ENV:SYSTEMROOT\system32\OpenSSH\ssh.exe"
+
+# EDITOR DETECTION
+
 function Test-CommandExists {
     param($command)
-    $exists = $null -ne (Get-Command $command -ErrorAction SilentlyContinue)
-    return $exists
+    return $null -ne (Get-Command $command -ErrorAction SilentlyContinue)
 }
 
-# Editor Configuration
-$EDITOR = if (Test-CommandExists nvim) { 'nvim' }
-elseif (Test-CommandExists pvim) { 'pvim' }
-elseif (Test-CommandExists vim) { 'vim' }
-elseif (Test-CommandExists vi) { 'vi' }
-elseif (Test-CommandExists code) { 'code' }
-elseif (Test-CommandExists notepad++) { 'notepad++' }
-elseif (Test-CommandExists sublime_text) { 'sublime_text' }
-else { 'notepad' }
+$EDITOR = switch ($true) {
+    (Test-CommandExists nvim)         { 'nvim'; break }
+    (Test-CommandExists vim)          { 'vim'; break }
+    (Test-CommandExists vi)           { 'vi'; break }
+    (Test-CommandExists code)         { 'code'; break }
+    (Test-CommandExists 'notepad++')  { 'notepad++'; break }
+    default                           { 'notepad' }
+}
 
-# Exporting chocolatey profile to enable tab-completion
+Set-Item -Path alias:vim -Value $EDITOR
+Set-Item -Path alias:vi  -Value $EDITOR
+
+# CHOCOLATEY
+
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-    Import-Module "$ChocolateyProfile"
+if (Test-Path $ChocolateyProfile) {
+    Import-Module $ChocolateyProfile
 }
 
-### ALIASES ###
-Set-Alias -Name tt -Value tree
-Set-Alias -Name ll -Value ls
+# FUNCTIONS
 
-Set-Alias -Name vim -Value $EDITOR
-Set-Alias -Name vi -Value nvim
-Set-Alias -Name cat -Value bat
-Set-Alias -Name h -Value Get-History
+# Edit PowerShell Profile and Config
+function Edit-Profile  { & $EDITOR $PROFILE }
+function Edit-Starship { & $EDITOR $ENV:STARSHIP_CONFIG }
+function Edit-Nvim     { & $EDITOR "$ENV:LOCALAPPDATA\nvim" }
+function Edit-SSHConfig { & $EDITOR "$HOME\.ssh\config" }
 
-### HANDY ALIASES ###
-Set-Alias -Name ep -Value Edit-Profile
-Set-Alias -Name sedit -Value Edit-Starship
-
-# Set UNIX-like aliases for the admin command, See function below
-# so sudo <command> will run the command with elevated rights.
-Set-Alias -Name su -Value admin
-
-### FUNCTIONS ###
-
-# pwsh
-Function Edit-Profile { vim $PROFILE }
-
-# starship
-Function Edit-Starship { vim $STARSHIP_CONFIG }
-
-# nvim
-Function Edit-Nvim { vim $ENV:LOCALAPPDATA\nvim }
-
-# Git
+# GIT FLOW
 Function gs { git status }
 Function ga { git add . }
-Function gcm { param($m) git commit -m "$m" }
 Function gp { git push }
-Function g { z Github }
 Function gcl { git clone "$args" }
-Function gcom {
+
+function gcom {
     git add .
     git commit -m "$args"
 }
-Function lazyg {
+
+function lazyg {
     git add .
     git commit -m "$args"
     git push
 }
 
-# fzf
-Function bfzf {
+# FZF
+
+function bfzf {
     fzf --preview="bat --decorations=always --color=always {}"
 }
 
-Function fzfvim {
-    nvim (fzf --preview="bat --decorations=always --color=always {}")
+function fzfvim {
+    & $EDITOR (fzf --preview="bat --decorations=always --color=always {}")
 }
 
-### SPECIAL FUNCTIONS ###
-# Reload PowerShell Profiles for All Users
-Function Update-Profile {
-    # Memuat ulang profil PowerShell
+# UTILITIES
+
+## Reload PowerShell Profile
+function Update-Profile {
     . $PROFILE
-    Write-Output "Profile Reloaded"
+    Write-Output "Profile reloaded."
 }
 
-# Create New-Item
-Function touch($file) { "" | Out-File $file -Encoding ASCII }
-
-# Locate file quickly
-Function ff ($name) {
-    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
-        Write-Output "$($_.FullName)"
-    }
+## Create New File
+function touch {
+    param($file)
+    "" | Out-File $file -Encoding ASCII
 }
 
-# Extract ZIP File
-Function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
+## Search file Recursively
+function ff {
+    param($name)
+    Get-ChildItem -Recurse -Filter "*${name}*" -ErrorAction SilentlyContinue |
+        ForEach-Object { Write-Output $_.FullName }
 }
 
-# Print command location
-Function which {
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$command  
+## Extract ZIP
+function unzip {
+    param($file)
+    Write-Output "Extracting $file to $PWD"
+    $fullFile = Get-ChildItem -Path $PWD -Filter $file | ForEach-Object { $_.FullName }
+    Expand-Archive -Path $fullFile -DestinationPath $PWD
+}
+
+## which-like command
+function which {
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string]$command
     )
-
     $result = Get-Command $command -ErrorAction SilentlyContinue
+    if ($result) { $result.Source } else { Write-Host "$command not found" }
+}
 
-    if ($result) {
-        $result.Source
+# Run as Administrator via Windows Terminal
+function admin {
+    if ($args.Count -gt 0) {
+        $argList = "& '$args'"
+        Start-Process wt -Verb RunAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
+    } else {
+        Start-Process wt -Verb RunAs
     }
-    else {
-        Write-Host "${command} not found"
-    }
 }
 
-# Auto-start ssh-agent if not running
-if (-not (Get-Process ssh-agent -ErrorAction SilentlyContinue)) {
-    Start-Service ssh-agent
-}
-
-# Function for easy SSH config editing
-function Edit-SSHConfig {
-    nvim ~\.ssh\config
-}
-Set-Alias sshconfig Edit-SSHConfig
-
-# yazi shell wrapper and aliasing 
+# Yazi file manager with directory tracking
 function y {
     $tmp = [System.IO.Path]::GetTempFileName()
     yazi $args --cwd-file="$tmp"
@@ -151,39 +132,39 @@ function y {
     Remove-Item -Path $tmp
 }
 
-# Run as Administrator
-Function admin {
-    if ($args.Count -gt 0) {
-        $argList = "& '$args'"
-        Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
-    }
-    else {
-        Start-Process wt -Verb runAs
-    }
+# SSH agent - auto-start
+if (-not (Get-Process ssh-agent -ErrorAction SilentlyContinue)) {
+    Start-Service ssh-agent -ErrorAction SilentlyContinue
 }
 
-### MODULES IMPORTER ###
-# Terminal-Icons
+# ALIASES
+
+Set-Alias -Name tt		-Value tree
+Set-Alias -Name cat     	-Value bat
+Set-Alias -Name h       	-Value Get-History
+Set-Alias -Name su      	-Value admin
+Set-Alias -Name ep      	-Value Edit-Profile
+Set-Alias -Name sedit   	-Value Edit-Starship
+Set-Alias -Name sshconfig	-Value Edit-SSHConfig
+Set-Alias -Name z	  	-Value cd
+
+# MODULES
+
 Import-Module Terminal-Icons
 
-# PSReadline; fish-like capability
-Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-# Set-PSReadlineOption -PredictionViewStyle InlineView 
-Set-PsReadlineOption -PredictionSource History
-
-# FZF but for PowerShell
-Import-Module -Name PSFzf
+Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-# Command Not Found (PowerToys) - Such as useless Module 
-# Import-Module -Name Microsoft.WinGet.CommandNotFound
+# PSREADLINE
 
-### INVOCATIONS ###
-# colorscripts
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle InlineView
+
+# INVOCATIONS
+
 Show-ColorScript -Name alpha
 
-# starship
 Invoke-Expression (&starship init powershell)
 
-# zoxide
 Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
